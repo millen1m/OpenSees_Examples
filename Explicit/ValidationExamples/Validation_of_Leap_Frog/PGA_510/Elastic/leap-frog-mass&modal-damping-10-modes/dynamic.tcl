@@ -7,6 +7,17 @@ puts "fiber element ok"
 
 fixZ -1.5 1 1 1 1 1 1
 
+set pi [expr 2.0*asin(1.0)];						# Definition of pi
+set numModes 10
+#set lambda [eigen $numModes]
+set lambda [eigen  $numModes]
+set T []
+set period "Periods.txt"
+set Periods [open $period "w"]
+puts $Periods "$lambda"
+close $Periods
+record
+
 constraints Transformation;   				
 numberer RCM;					
 system SparseSYM				
@@ -27,7 +38,7 @@ recorder Node    -file disp3.txt  -dT 0.01  -time   -node  16 28 40 52 543 544 5
 recorder Node   -file reaction.txt -dT 0.01 -time -nodeRange 1 12 -dof 1 reaction
 
 
-set xDamp 0.05;					# damping ratio ,按照规范取值
+set xDamp 0.05;					# damping ratio ,锟斤拷锟秸规范取值
 set MpropSwitch 1.0;
 set KcurrSwitch 0.0;
 set KcommSwitch 0.0;
@@ -45,13 +56,14 @@ set betaKinit [expr $KinitSwitch*2.*$xDamp/($omegaI+$omegaJ)];         			# init
 # define damping
 
 
-rayleigh $alphaM $betaKcurr $betaKinit $betaKcomm; 			# RAYLEIGH damping
+rayleigh $alphaM $betaKcurr $betaKinit $betaKcomm; 
+ModalDamping 0.05 0 100  $alphaM 				# RAYLEIGH damping
 
 
 set IDloadTag 1001;
 set iGMfile "GMX.txt";
 set iGMdirection "1";
-set iGMfact "35";
+set iGMfact "5.1";
 set dt 0.01;
 set GMfatt [expr $iGMfact];
 set AccelSeries "Series -dt $dt -filePath $iGMfile -factor $GMfatt";
@@ -59,7 +71,7 @@ pattern UniformExcitation $IDloadTag $iGMdirection -accel $AccelSeries;
 
 constraints Transformation;
 numberer RCM;
-system Diagonal
+system DiagonalwithModalDamping
 
 algorithm Linear
 

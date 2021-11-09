@@ -38,8 +38,8 @@ recorder Node    -file disp3.txt  -dT 0.01  -time   -node  16 28 40 52 543 544 5
 recorder Node   -file reaction.txt -dT 0.01 -time -nodeRange 1 12 -dof 1 reaction
 
 
-set xDamp 0.00;					# damping ratio ,按照规范取值
-set MpropSwitch 0.0;
+set xDamp 0.05;					# damping ratio ,锟斤拷锟秸规范取值
+set MpropSwitch 1.0;
 set KcurrSwitch 0.0;
 set KcommSwitch 0.0;
 set KinitSwitch 0.0;

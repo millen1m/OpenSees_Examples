@@ -35,11 +35,15 @@ recorder Node    -file disp1.txt  -dT 0.01  -time   -node  16 28 40 52 543 544 5
 recorder Node    -file disp2.txt  -dT 0.01  -time   -node  16 28 40 52 543 544 545 546 547 548    -dof 2  disp
 recorder Node    -file disp3.txt  -dT 0.01  -time   -node  16 28 40 52 543 544 545 546 547 548    -dof 3  disp
 
+recorder Node    -file z.txt  -dT 0.02  -time   -nodeRange 1 1292    -dof 3  disp
+recorder Node    -file y.txt  -dT 0.02  -time   -nodeRange 1 1292    -dof 2  disp
+recorder Node    -file x.txt  -dT 0.02  -time   -nodeRange 1 1292    -dof 1  disp
+
 recorder Node   -file reaction.txt -dT 0.01 -time -nodeRange 1 12 -dof 1 reaction
 
 
-set xDamp 0.00;					# damping ratio ,按照规范取值
-set MpropSwitch 0.0;
+set xDamp 0.05;					# damping ratio ,锟斤拷锟秸规范取值
+set MpropSwitch 1.0;
 set KcurrSwitch 0.0;
 set KcommSwitch 0.0;
 set KinitSwitch 0.0;
@@ -57,13 +61,13 @@ set betaKinit [expr $KinitSwitch*2.*$xDamp/($omegaI+$omegaJ)];         			# init
 
 
 rayleigh $alphaM $betaKcurr $betaKinit $betaKcomm; 
-ModalDamping 0.05 0 100  $alphaM 				# RAYLEIGH damping
+ModalDamping 0.05 0 1000  $alphaM			# RAYLEIGH damping
 
 
 set IDloadTag 1001;
 set iGMfile "GMX.txt";
 set iGMdirection "1";
-set iGMfact "5.1";
+set iGMfact "35";
 set dt 0.01;
 set GMfatt [expr $iGMfact];
 set AccelSeries "Series -dt $dt -filePath $iGMfile -factor $GMfatt";

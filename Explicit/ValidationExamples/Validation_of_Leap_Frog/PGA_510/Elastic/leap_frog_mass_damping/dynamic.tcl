@@ -7,16 +7,7 @@ puts "fiber element ok"
 
 fixZ -1.5 1 1 1 1 1 1
 
-set pi [expr 2.0*asin(1.0)];						# Definition of pi
-set numModes 10
-#set lambda [eigen $numModes]
-set lambda [eigen  $numModes]
-set T []
-set period "Periods.txt"
-set Periods [open $period "w"]
-puts $Periods "$lambda"
-close $Periods
-record
+
 
 constraints Transformation;   				
 numberer RCM;					
@@ -38,14 +29,14 @@ recorder Node    -file disp3.txt  -dT 0.01  -time   -node  16 28 40 52 543 544 5
 recorder Node   -file reaction.txt -dT 0.01 -time -nodeRange 1 12 -dof 1 reaction
 
 
-set xDamp 0.05;					# damping ratio ,按照规范取值
+set xDamp 0.05;					# damping ratio
 set MpropSwitch 1.0;
 set KcurrSwitch 0.0;
 set KcommSwitch 0.0;
 set KinitSwitch 0.0;
 set nEigenI 1;		# mode 1
 set nEigenJ 3;		# mode 3
-set lambdaI 9.617441e+001 
+set lambdaI 9.617441e+001
 set lambdaJ 5.968588e+002
 set omegaI [expr pow($lambdaI,0.5)];
 set omegaJ [expr pow($lambdaJ,0.5)];
@@ -56,8 +47,7 @@ set betaKinit [expr $KinitSwitch*2.*$xDamp/($omegaI+$omegaJ)];         			# init
 # define damping
 
 
-rayleigh $alphaM $betaKcurr $betaKinit $betaKcomm; 
-ModalDamping 0.05 0 100  $alphaM 				# RAYLEIGH damping
+rayleigh $alphaM $betaKcurr $betaKinit $betaKcomm;
 
 
 set IDloadTag 1001;
@@ -71,11 +61,9 @@ pattern UniformExcitation $IDloadTag $iGMdirection -accel $AccelSeries;
 
 constraints Transformation;
 numberer RCM;
-system DiagonalwithModalDamping
-
+system Diagonal;
 algorithm Linear
-
-integrator Explicitdifference
+integrator ExplicitDifference
 analysis Transient
 puts "ok"
 analyze 400000 0.00005

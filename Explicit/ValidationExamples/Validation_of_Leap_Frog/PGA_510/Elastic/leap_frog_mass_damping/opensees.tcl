@@ -1292,11 +1292,14 @@ node  1290               0.0000               0.0000              23.4000
 node  1291               0.0000               0.0000              26.4000
 node  1292               0.0000               0.0000              29.4000
 #define concrete
-uniaxialMaterial Concrete01     1      -30000000.00000             -0.00200      -20000000.00000             -0.00400
+#uniaxialMaterial Concrete01     1      -30000000.00000             -0.00200      -20000000.00000             -0.00400
+uniaxialMaterial Elastic 1 3e10
+uniaxialMaterial Elastic 101 2e11
+
 #define steel
-uniaxialMaterial Steel02   101      400000000.00000   199999995904.00000              0.00100 18.5 0.925 0.15
+#uniaxialMaterial Steel02   101      400000000.00000   199999995904.00000              0.00100 18.5 0.925 0.15
 #define section
-section Fiber     1 {
+section Fiber     1 -GJ 100000.0 {
 fiber              0.33750             -0.33750              0.00062     1
 fiber              0.33750             -0.24375              0.00406     1
 fiber              0.33750             -0.08125              0.00406     1
@@ -1339,7 +1342,7 @@ fiber             -0.32500             -0.32500              0.00150   101
 fiber             -0.32500              0.32500              0.00150   101
 }
 #define section
-section Fiber     2 {
+section Fiber     2 -GJ 100000.0 {
 fiber              0.28750             -0.28750              0.00062     1
 fiber              0.28750             -0.20625              0.00344     1
 fiber              0.28750             -0.06875              0.00344     1
@@ -1382,7 +1385,7 @@ fiber             -0.27500             -0.27500              0.00110   101
 fiber             -0.27500              0.27500              0.00110   101
 }
 #define section
-section Fiber     3 {
+section Fiber     3 -GJ 100000.0 {
 fiber              0.23750             -0.23750              0.00062     1
 fiber              0.23750             -0.16875              0.00281     1
 fiber              0.23750             -0.05625              0.00281     1
@@ -1425,7 +1428,7 @@ fiber             -0.22500             -0.22500              0.00090   101
 fiber             -0.22500              0.22500              0.00090   101
 }
 #define section
-section Fiber     4 {
+section Fiber     4 -GJ 100000.0 {
 fiber              0.33750             -0.33750              0.00062     1
 fiber              0.33750             -0.24375              0.00406     1
 fiber              0.33750             -0.08125              0.00406     1
@@ -1468,7 +1471,7 @@ fiber             -0.32500             -0.32500              0.00125   101
 fiber             -0.32500              0.32500              0.00125   101
 }
 #define section
-section Fiber     5 {
+section Fiber     5 -GJ 100000.0 {
 fiber              0.28750             -0.28750              0.00062     1
 fiber              0.28750             -0.20625              0.00344     1
 fiber              0.28750             -0.06875              0.00344     1
@@ -1511,7 +1514,7 @@ fiber             -0.27500             -0.27500              0.00085   101
 fiber             -0.27500              0.27500              0.00085   101
 }
 #define section
-section Fiber     6 {
+section Fiber     6 -GJ 100000.0 {
 fiber              0.23750             -0.23750              0.00062     1
 fiber              0.23750             -0.16875              0.00281     1
 fiber              0.23750             -0.05625              0.00281     1
@@ -1554,7 +1557,7 @@ fiber             -0.22500             -0.22500              0.00070   101
 fiber             -0.22500              0.22500              0.00070   101
 }
 #define section
-section Fiber     7 {
+section Fiber     7 -GJ 100000.0 {
 fiber              0.13750             -0.38750              0.00062     1
 fiber              0.13750             -0.28125              0.00469     1
 fiber              0.13750             -0.09375              0.00469     1
@@ -1597,7 +1600,7 @@ fiber             -0.12500             -0.37500              0.00200   101
 fiber             -0.12500              0.37500              0.00200   101
 }
 #define section
-section Fiber     8 {
+section Fiber     8 -GJ 100000.0 {
 fiber              0.11250             -0.33750              0.00062     1
 fiber              0.11250             -0.24375              0.00406     1
 fiber              0.11250             -0.08125              0.00406     1
